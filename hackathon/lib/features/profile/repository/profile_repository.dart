@@ -25,7 +25,7 @@ class ProfileRepository {
   }
 
   Future<Map<String, dynamic>> getProfile() async {
-    Map<String, dynamic> response = await ApiClient().get(
+    Map<String, dynamic> response = await ApiClient().post(
       ApiRoutes.getProfile,
     );
     return response;
