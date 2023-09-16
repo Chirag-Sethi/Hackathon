@@ -13,6 +13,4 @@ class ApiRoutes {
 
   // static String baseUrl =
   //     'http://a69cdd17683594bf081db57d8c1b9e1b-1526721927.af-south-1.elb.amazonaws.com';
-
-
 }

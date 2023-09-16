@@ -79,6 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ));
           }
           if (state is CreateOrderFailedState) {
+            _homeCubit.selectedVal = null;
+            data.clear();
+            _homeCubit.amount.clear();
+            _homeCubit.checkButton();
+            _homeCubit.getOrgainzation();
             showDialog(
               context: context,
               builder: (context) {
