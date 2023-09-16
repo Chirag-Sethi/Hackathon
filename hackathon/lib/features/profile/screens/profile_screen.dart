@@ -5,6 +5,7 @@ import 'package:hackathon/common/widgets/common_textfeild.dart';
 import 'package:hackathon/common/widgets/custom_button.dart';
 import 'package:hackathon/core/constants/app_colors.dart';
 import 'package:hackathon/core/constants/app_textstyles.dart';
+import 'package:hackathon/core/local_storage/secure_storage.dart';
 import 'package:hackathon/core/responsive/size_config.dart';
 
 import 'package:hackathon/features/profile/cubit/profile_cubit.dart';
@@ -56,7 +57,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           body: BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) {
-              if (state is ProfileFailedState) {}
+              if (state is ProfileFailedState) {
+                // SecureStorageHelper.instance.deleteAll();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                    "Something went wrong",
+                    style: AppTextStyles.f12W400White,
+                  ),
+                  backgroundColor: AppColors.black,
+                ));
+              }
             },
             builder: (context, state) {
               return SingleChildScrollView(

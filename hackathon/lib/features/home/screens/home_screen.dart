@@ -3,15 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/common/widgets/common_textfeild.dart';
 import 'package:hackathon/common/widgets/custom_button.dart';
+import 'package:hackathon/core/auth/auth_repository.dart';
 import 'package:hackathon/core/constants/app_colors.dart';
 import 'package:hackathon/core/constants/app_textstyles.dart';
 import 'package:hackathon/core/constants/image_path.dart';
+import 'package:hackathon/core/local_storage/secure_storage.dart';
 import 'package:hackathon/core/responsive/size_config.dart';
 import 'package:hackathon/core/routes/named_routes.dart';
 import 'package:hackathon/core/routes/navigator.dart';
 import 'package:hackathon/features/home/cubit/home_cubit.dart';
 import 'package:hackathon/features/home/model/get_model_response.dart';
 import 'package:hackathon/features/home/widget/custom_dropdown.dart';
+import 'package:hackathon/features/login/cubit/login_cubit.dart';
 import 'package:lottie/lottie.dart';
 
 import '../cubit/home_state.dart';
@@ -38,16 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: GestureDetector(
-              onTap: () {
-                AnywhereDoor.pushNamed(context,
-                    routeName: RouteName.profileScreen);
-              },
-              child: Padding(
-                padding:
-                    EdgeInsets.only(right: 18 * SizeConfig.widthMultiplier!),
-                child: const Icon(Icons.account_circle_rounded),
-              )),
+          automaticallyImplyLeading: false,
+          // leading: GestureDetector(
+          //     onTap: () {
+          //       AnywhereDoor.pushNamed(context,
+          //           routeName: RouteName.profileScreen);
+          //     },
+          //     child: Padding(
+          //       padding:
+          //           EdgeInsets.only(right: 18 * SizeConfig.widthMultiplier!),
+          //       child: const Icon(Icons.account_circle_rounded),
+          //     )),
           actions: [
             GestureDetector(
                 onTap: () {
@@ -57,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding:
                       EdgeInsets.only(right: 18 * SizeConfig.widthMultiplier!),
-                  child: const Icon(Icons.receipt_long),
+                  child: const Icon(Icons.account_circle_rounded),
                 )),
           ]),
       body: BlocConsumer<HomeCubit, HomeState>(

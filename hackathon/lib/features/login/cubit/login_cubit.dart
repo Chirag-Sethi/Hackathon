@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,12 +132,14 @@ class LoginCubit extends Cubit<LoginState> {
   checkAuth(BuildContext context) async {
     await AuthRepository.instance.init();
     final accessToken = AuthRepository.accessToken;
-    if (accessToken != null) {
-      AnywhereDoor.pushReplacementNamed(context,
-          routeName: RouteName.homeScreen);
-    } else {
-      AnywhereDoor.pushReplacementNamed(context,
-          routeName: RouteName.loginScreen);
-    }
+    Timer(const Duration(seconds: 2), () {
+      if (accessToken != null) {
+        AnywhereDoor.pushReplacementNamed(context,
+            routeName: RouteName.homeScreen);
+      } else {
+        AnywhereDoor.pushReplacementNamed(context,
+            routeName: RouteName.loginScreen);
+      }
+    });
   }
 }

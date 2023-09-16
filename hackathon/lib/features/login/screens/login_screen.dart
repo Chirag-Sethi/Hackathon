@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     _loginCubit = BlocProvider.of<LoginCubit>(context);
-    _loginCubit.checkAuth(context);
+    // _loginCubit.checkAuth(context);
   }
 
   @override
