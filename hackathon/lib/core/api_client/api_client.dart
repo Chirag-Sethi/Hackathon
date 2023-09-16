@@ -2,9 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+
 import 'package:hackathon/core/api_client/api_exception.dart';
 import 'package:hackathon/core/api_client/api_result.dart';
+
 
 import 'header_interceptor.dart';
 
@@ -74,6 +75,26 @@ class ApiClient {
     try {
       url = url;
       Response response = await _dio.put(
+        url,
+        data: body,
+        options: Options(headers: headers),
+        cancelToken: _cancelToken,
+      );
+      return response.data;
+    } catch (error) {
+      return _handleError(url, error);
+    }
+  }
+
+  Future patch(
+    String url, {
+    required JsonMap body,
+    Map<String, dynamic>? headers,
+    Backend? backend,
+  }) async {
+    try {
+      url = url;
+      Response response = await _dio.patch(
         url,
         data: body,
         options: Options(headers: headers),
@@ -155,18 +176,17 @@ class ApiClient {
         // getX.Get.deleteAll();
         // getX.Get.put(LoginController());
         // getX.Get.put(DashBoardController());
-        // Navigator.pushReplacementNamed(
-        //     getX.Get.context!, RouteName.usertypeSelectionScreen);
       } else {}
 
-      if (error.type == DioExceptionType.connectionTimeout||
+      if (error.type == DioExceptionType.connectionTimeout ||
           error.type == DioExceptionType.sendTimeout ||
           error.type == DioExceptionType.receiveTimeout) {
         statusCode = HttpStatus
             .requestTimeout; //Set the error code to 408 in case of timeout
       }
       throw ApiException(
-        errorMessage: response?.data != null ? (response?.data?['message']??'') : '',
+        errorMessage:
+            response?.data != null ? (response?.data?['message'] ?? '') : '',
         path: path,
         message: 'received server error $statusCode while $method data',
         response: data.toString(),

@@ -3,9 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hackathon/core/constants/app_colors.dart';
 import 'package:hackathon/core/responsive/size_config.dart';
-import 'package:hackathon/features/auth/cubit/auth_cubit.dart';
-import 'package:hackathon/features/auth/screens/login_screen.dart';
+import 'package:hackathon/core/routes/named_routes.dart';
+
+import 'package:hackathon/features/Login/screens/Login_screen.dart';
+import 'package:hackathon/features/home/cubit/home_cubit.dart';
+
+import 'package:hackathon/features/login/cubit/login_cubit.dart';
+import 'package:hackathon/features/profile/cubit/profile_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +25,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit(),
+        BlocProvider<LoginCubit>(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (context) => ProfileCubit(),
+        ),
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit(),
         ),
       ],
       child: ScreenUtilInit(
@@ -34,13 +46,13 @@ class MyApp extends StatelessWidget {
                   builder: (BuildContext context, Orientation orientation) {
                 SizeConfig().init(constraints, orientation);
                 return MaterialApp(
-                  title: 'Hack',
+                  title: 'WellFound',
+                  onGenerateRoute: GenerateRoute.generateRoute,
+                  initialRoute: '/',
                   debugShowCheckedModeBanner: false,
                   home: const LoginScreen(),
                   theme: ThemeData(
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    // primarySwatch: AppColors.kPrimarySwatch,
-                    // canvasColor: AppColors.kPureWhite,
+                    appBarTheme: const AppBarTheme(color: AppColors.red),
                     fontFamily: 'Inter Default',
                   ),
                 );

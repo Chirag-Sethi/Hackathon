@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/core/auth/auth_repository.dart';
+import 'package:hackathon/core/routes/named_routes.dart';
+import 'package:hackathon/core/routes/navigator.dart';
 import 'package:intl/intl.dart';
 
 abstract class HelperFunctions {
@@ -19,7 +22,6 @@ extension EmailValidator on String {
         .hasMatch(this);
   }
 }
-
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -81,19 +83,9 @@ extension NumberFormat on num? {
   }
 }
 
-
-
-
-
-
-
-
 formatDateTime(DateTime dateTime, {String? format}) {
   return DateFormat(format ?? 'yyyy-MM-dd').format(dateTime).toString();
 }
-
-
-
 
 // showLoaderDialog(BuildContext context) {
 //   showDialog(
@@ -102,8 +94,6 @@ formatDateTime(DateTime dateTime, {String? format}) {
 //       barrierColor: Colors.black.withOpacity(0.3),
 //       builder: (cxt) => const Center(child: CustomLoader()));
 // }
-
-
 
 DateTime joinDateAndTime({required DateTime date, required TimeOfDay time}) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
